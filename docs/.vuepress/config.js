@@ -1,3 +1,6 @@
+const lastUpdatedPlugin = require('../../packages/vuepress-plugin-last-updated')
+const testPlugin = require('../../packages/vuepress-plugin-test')
+
 module.exports = {
   dest: 'vuepress',
   locales: {
@@ -25,6 +28,15 @@ module.exports = {
   ],
   serviceWorker: true,
   theme: 'vue',
+  plugins: [
+    lastUpdatedPlugin,
+    [
+      testPlugin,
+      {
+
+      }
+    ]
+  ],
   themeConfig: {
     repo: 'vuejs/vuepress',
     editLinks: true,
