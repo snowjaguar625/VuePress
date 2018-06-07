@@ -1,5 +1,3 @@
-const testPlugin = require('../../packages/vuepress-plugin-test')
-
 module.exports = {
   dest: 'vuepress',
   locales: {
@@ -27,14 +25,6 @@ module.exports = {
   ],
   serviceWorker: true,
   theme: 'vue',
-  plugins: [
-    [
-      testPlugin,
-      {
-
-      }
-    ]
-  ],
   themeConfig: {
     repo: 'vuejs/vuepress',
     editLinks: true,
