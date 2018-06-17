@@ -1,6 +1,3 @@
-const testPlugin = require('../../packages/vuepress-plugin-test')
-const translationComparisonPlugin = require('../../../vuepress-plugin-translation-ui/src/index')
-
 module.exports = {
   dest: 'vuepress',
   locales: {
@@ -28,10 +25,6 @@ module.exports = {
   ],
   serviceWorker: true,
   theme: 'vue',
-  plugins: [
-    testPlugin,
-    translationComparisonPlugin
-  ],
   themeConfig: {
     repo: 'vuejs/vuepress',
     editLinks: true,
@@ -50,10 +43,6 @@ module.exports = {
           {
             text: 'Config Reference',
             link: '/config/'
-          },
-          {
-            text: 'Plugin',
-            link: '/plugin/'
           },
           {
             text: 'Default Theme Config',
