@@ -87,8 +87,7 @@ Contributions are welcome!
 
 ``` bash
 yarn
-yarn dev  # serves VuePress' own docs with itself
-yarn test # make sure your code change pass the test
+yarn dev # serves VuePress' own docs with itself
 ```
 
 ## License

@@ -1,3 +1,6 @@
+const testPlugin = require('../../packages/vuepress-plugin-test')
+const translationComparisonPlugin = require('../../../vuepress-plugin-translation-ui/src/index')
+
 module.exports = {
   dest: 'vuepress',
   locales: {
@@ -25,6 +28,10 @@ module.exports = {
   ],
   serviceWorker: true,
   theme: 'vue',
+  plugins: [
+    testPlugin,
+    translationComparisonPlugin
+  ],
   themeConfig: {
     repo: 'vuejs/vuepress',
     editLinks: true,
@@ -45,12 +52,12 @@ module.exports = {
             link: '/config/'
           },
           {
-            text: 'Default Theme Config',
-            link: '/default-theme-config/'
+            text: 'Plugin',
+            link: '/plugin/'
           },
           {
-            text: 'Changelog',
-            link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
+            text: 'Default Theme Config',
+            link: '/default-theme-config/'
           }
         ],
         sidebar: {
@@ -74,10 +81,6 @@ module.exports = {
           {
             text: '默认主题',
             link: '/zh/default-theme-config/'
-          },
-          {
-            text: 'Changelog',
-            link: 'https://github.com/vuejs/vuepress/blob/master/CHANGELOG.md'
           }
         ],
         sidebar: {
