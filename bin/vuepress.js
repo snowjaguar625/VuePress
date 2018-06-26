@@ -27,7 +27,6 @@ program
   .description('start development server')
   .option('-p, --port <port>', 'use specified port (default: 8080)')
   .option('-h, --host <host>', 'use specified host (default: 0.0.0.0)')
-  .option('--debug', 'development mode for debugging')
   .action((dir = '.', { host, port }) => {
     wrapCommand(dev)(path.resolve(dir), { host, port })
   })
@@ -104,6 +103,7 @@ function wrapCommand (fn) {
   return (...args) => {
     return fn(...args).catch(err => {
       console.error(chalk.red(err.stack))
+      process.exitCode = 1
     })
   }
 }
