@@ -1,9 +1,9 @@
 /* global VUEPRESS_TEMP_PATH */
 
 import Vue from 'vue'
-import dataMixin from '@internal/data-mixins'
+import I18n from '@internal/i18n'
 
-export default function (siteData) {
+export default function dataMixin (siteData) {
   prepare(siteData)
   const store = new Vue({
     data: {
@@ -20,7 +20,18 @@ export default function (siteData) {
     })
   }
 
-  return dataMixin(siteData)
+  const I18nConstructor = I18n(store)
+  const i18n = new I18nConstructor()
+  const descriptors = Object.getOwnPropertyDescriptors(Object.getPrototypeOf(i18n))
+  const computed = {}
+  Object.keys(descriptors).reduce((computed, key) => {
+    if (key.startsWith('$')) {
+      computed[key] = descriptors[key].get
+    }
+    return computed
+  }, computed)
+
+  return { computed }
 }
 
 function prepare (siteData) {
