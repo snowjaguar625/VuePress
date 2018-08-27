@@ -62,7 +62,7 @@ Websites built with VuePress:
 * [vue-cli](https://cli.vuejs.org/)
 * [vuex](https://vuex.vuejs.org/)
 * [vue-server-renderer](https://ssr.vuejs.org/)
-* [vue-router](https://router.vuejs.org/)
+* [vue-router](https://github.com/vuejs/vue-router)
 * [vue-test-utils](https://vue-test-utils.vuejs.org/)
 * [vue-loader](https://vue-loader.vuejs.org/)
 * [vetur](https://vuejs.github.io/vetur/)
@@ -77,8 +77,11 @@ Websites built with VuePress:
 
 VuePress is still a work in progress. There are a few things that it currently does not support but are planned:
 
-- Plugin support
-- Blogging support
+- Migrate the old test.
+- `@vuepress/plugin-test-utils`.
+- `once` option for plugin options, which allows the same plugin only to be applied only once.
+- `theme` name shortcut.
+- `@vuepress/theme-blog`
 
 Contributions are welcome!
 
