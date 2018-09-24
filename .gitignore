@@ -2,6 +2,5 @@
 node_modules
 *.log
 .temp
-TODOs.md
 vuepress
-packages/blog-example
+TODOs.md

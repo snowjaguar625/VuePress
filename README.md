@@ -72,16 +72,14 @@ Websites built with VuePress:
 
 * [cr-vue](https://cr-vue.mio3io.com/)
 * [vuesax](https://lusaxweb.github.io/vuesax/)
+* [vuemeetups](https://vuemeetups.org)
 
 ## Todo Features
 
 VuePress is still a work in progress. There are a few things that it currently does not support but are planned:
 
-- Migrate the old test.
-- `@vuepress/plugin-test-utils`.
-- `once` option for plugin options, which allows the same plugin only to be applied only once.
-- `theme` name shortcut.
-- `@vuepress/theme-blog`
+- Plugin support
+- Blogging support
 
 Contributions are welcome!
 
