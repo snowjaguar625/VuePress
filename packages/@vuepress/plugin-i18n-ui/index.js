@@ -12,10 +12,8 @@ module.exports = (pluginOptions = {}, context) => ({
 
   additionalPages: [
     {
-      permalink: pluginOptions.permalink || '/i18n/',
-      frontmatter: {
-        'layout': 'I18nUILayout'
-      }
+      filePath: path.resolve(__dirname, 'index.md'),
+      permalink: pluginOptions.permalink || '/i18n/'
     }
   ]
 })

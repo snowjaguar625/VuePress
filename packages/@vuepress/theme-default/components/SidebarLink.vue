@@ -59,7 +59,7 @@ function renderChildren (h, children, path, route, maxDepth, depth = 1) {
 </script>
 
 <style lang="stylus">
-@import '~@app/style/config'
+@import '../styles/config.styl'
 
 .sidebar .sidebar-sub-headers
   padding-left 1rem

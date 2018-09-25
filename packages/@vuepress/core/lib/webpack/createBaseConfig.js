@@ -1,15 +1,5 @@
-'use strict'
-
-/**
- * Module dependencies.
- */
-
 const path = require('path')
 const { fs, logger, chalk } = require('@vuepress/shared-utils')
-
-/**
- * Expose createBaseConfig method.
- */
 
 module.exports = function createBaseConfig ({
   siteConfig,
@@ -22,8 +12,7 @@ module.exports = function createBaseConfig ({
   cliOptions: {
     debug,
     cache
-  },
-  pluginAPI
+  }
 }, isServer) {
   const Config = require('webpack-chain')
   const { VueLoaderPlugin } = require('vue-loader')
@@ -303,9 +292,6 @@ module.exports = function createBaseConfig ({
       VUEPRESS_TEMP_PATH: JSON.stringify(tempPath),
       LAST_COMMIT_HASH: JSON.stringify(getLastCommitHash())
     }])
-
-  pluginAPI.options.define.apply(config)
-  pluginAPI.options.alias.apply(config)
 
   return config
 }

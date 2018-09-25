@@ -8,14 +8,17 @@ module.exports = (options, context) => ({
     }, options)
   },
 
-  define () {
+  chainWebpack (config) {
     const { serviceWorker, updatePopup } = options
     const base = context.base || '/'
-    return {
-      SW_BASE_URL: base,
-      SW_ENABLED: !!serviceWorker,
-      SW_UPDATE_POPUP: updatePopup || false
-    }
+
+    config.plugin('injections').tap(([options]) => [
+      Object.assign(options, {
+        SW_BASE_URL: JSON.stringify(base),
+        SW_ENABLED: !!serviceWorker,
+        SW_UPDATE_POPUP: updatePopup ? JSON.stringify(updatePopup) : false
+      })
+    ])
   },
 
   // TODO support components option

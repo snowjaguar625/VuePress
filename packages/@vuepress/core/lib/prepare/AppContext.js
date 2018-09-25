@@ -1,9 +1,3 @@
-'use strict'
-
-/**
- * Module dependencies.
- */
-
 const path = require('path')
 const createMarkdown = require('../markdown/index')
 const loadConfig = require('./loadConfig')
@@ -11,18 +5,13 @@ const loadTheme = require('./loadTheme')
 const { fs, logger, chalk, globby, sort, datatypes: { isFunction }} = require('@vuepress/shared-utils')
 
 const Page = require('./Page')
-const ClientComputedMixin = require('./ClientComputedMixin')
+const I18n = require('./I18n')
 const PluginAPI = require('../plugin-api/index')
-
-/**
- * Expose AppContext.
- */
 
 module.exports = class AppContext {
   /**
    * Instantiate the app context with a new API
-   *
-   * @param {string} sourceDir
+   * @param { string } sourceDir
    * @param {{
    *  isProd: boolean,
    *  plugins: pluginsConfig,
@@ -30,7 +19,6 @@ module.exports = class AppContext {
    *  temp: string
    * }} options
    */
-
   constructor (sourceDir, cliOptions = {}, isProd) {
     this.sourceDir = sourceDir
     this.cliOptions = cliOptions
@@ -52,29 +40,26 @@ module.exports = class AppContext {
       ? path.resolve(this.siteConfig.dest)
       : path.resolve(sourceDir, '.vuepress/dist')
 
+    this.markdown = createMarkdown(this.siteConfig)
     this.pluginAPI = new PluginAPI(this)
     this.pages = [] // Array<Page>
-    this.ClientComputedMixinConstructor = ClientComputedMixin(this.getSiteData())
+    this.I18nConstructor = I18n(null)
   }
 
   /**
    * Load pages, load plugins, apply plugins / plugin options, etc.
-   *
    * @returns {Promise<void>}
-   * @api private
    */
-
   async process () {
     this.normalizeHeadTagUrls()
-    this.markdown = createMarkdown(this.siteConfig)
     this.resolveTemplates()
     await this.resolveTheme()
     this.resolvePlugins()
 
     await this.resolvePages()
     await Promise.all(
-      this.pluginAPI.options.additionalPages.values.map(async (options) => {
-        await this.addPage(options)
+      this.pluginAPI.options.additionalPages.values.map(async ({ path, permalink }) => {
+        await this.addPage({ filePath: path, permalink })
       })
     )
 
@@ -87,10 +72,7 @@ module.exports = class AppContext {
 
   /**
    * Apply internal and user plugins
-   *
-   * @api private
    */
-
   resolvePlugins () {
     const themeConfig = this.themeConfig
     const siteConfig = this.siteConfig
@@ -109,6 +91,7 @@ module.exports = class AppContext {
       .use(require('../internal-plugins/rootMixins'))
       .use(require('../internal-plugins/enhanceApp'))
       .use(require('../internal-plugins/overrideCSS'))
+      .use(require('../internal-plugins/i18nTemp'))
       .use(require('../internal-plugins/layoutComponents'))
       .use(require('../internal-plugins/pageComponents'))
       // user plugin
@@ -128,10 +111,7 @@ module.exports = class AppContext {
 
   /**
    * normalize head tag urls for base
-   *
-   * @api private
    */
-
   normalizeHeadTagUrls () {
     if (this.base !== '/' && this.siteConfig.head) {
       this.siteConfig.head.forEach(tag => {
@@ -152,10 +132,7 @@ module.exports = class AppContext {
 
   /**
    * Make template configurable
-   *
-   * @api private
    */
-
   resolveTemplates () {
     let { ssrTemplate, devTemplate } = this.siteConfig
     const templateDir = path.resolve(this.vuepressDir, 'templates')
@@ -179,11 +156,8 @@ module.exports = class AppContext {
 
   /**
    * Find all page source files located in sourceDir
-   *
    * @returns {Promise<void>}
-   * @api private
    */
-
   async resolvePages () {
     // resolve pageFiles
     const patterns = ['**/*.md', '!.vuepress', '!node_modules']
@@ -205,17 +179,14 @@ module.exports = class AppContext {
 
   /**
    * Add a page
-   *
-   * @returns {Promise<void>}
-   * @api public
+   * @returns { Promise<void> }
    */
-
   async addPage (options) {
     options.permalinkPattern = this.siteConfig.permalink
-    const page = new Page(options, this)
+    const page = new Page(options)
     await page.process({
       markdown: this.markdown,
-      computed: new this.ClientComputedMixinConstructor(),
+      i18n: new this.I18nConstructor((this.getSiteData.bind(this))),
       enhancers: this.pluginAPI.options.extendPageData.items
     })
     this.pages.push(page)
@@ -223,11 +194,8 @@ module.exports = class AppContext {
 
   /**
    * Resolve theme
-   *
-   * @returns {Promise<void>}
-   * @api private
+   * @returns { Promise<void> }
    */
-
   async resolveTheme () {
     const theme = this.siteConfig.theme || this.cliOptions.theme
     Object.assign(this, (await loadTheme(theme, this.sourceDir, this.vuepressDir)))
@@ -235,7 +203,6 @@ module.exports = class AppContext {
 
   /**
    * Get the data to be delivered to the client.
-   *
    * @returns {{
    *  title: string,
    *  description: string,
@@ -244,24 +211,15 @@ module.exports = class AppContext {
    *  themeConfig: ThemeConfig,
    *  locales: Locales
    * }}
-   * @api public
    */
-
   getSiteData () {
-    const { locales } = this.siteConfig
-    if (locales) {
-      Object.keys(locales).forEach(path => {
-        locales[path].path = path
-      })
-    }
-
     return {
       title: this.siteConfig.title || '',
       description: this.siteConfig.description || '',
       base: this.base,
       pages: this.pages.map(page => page.toJson()),
       themeConfig: this.siteConfig.themeConfig || {},
-      locales
+      locales: this.siteConfig.locales
     }
   }
 }
@@ -275,7 +233,6 @@ module.exports = class AppContext {
  *  tempPath: string
  * }}
  */
-
 function createTemp (tempPath) {
   if (!tempPath) {
     tempPath = path.resolve(__dirname, '../../.temp')

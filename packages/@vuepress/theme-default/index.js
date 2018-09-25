@@ -4,7 +4,6 @@ const themePlugin = require('./plugin')
 module.exports = {
   plugins: [
     themePlugin,
-    '@vuepress/active-header-links',
-    '@vuepress/search'
+    '@vuepress/active-header-links'
   ]
 }

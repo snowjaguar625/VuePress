@@ -1,9 +1,9 @@
 import { mount, RouterLinkStub } from '@vue/test-utils'
 import DropdownLink from '../../components/DropdownLink.vue'
-import createLocalVue from '@vuepress/test-utils/createLocalVue'
+import modeTestRunner from '@vuepress/test-utils/modeTestRunner'
 
-describe('DropdownLink', () => {
-  test('renders dropdown link.', () => {
+function test (mode, localVue) {
+  it(`$${mode} - renders dropdown link.`, () => {
     const item = {
       text: 'VuePress',
       items: [
@@ -18,7 +18,7 @@ describe('DropdownLink', () => {
       ]
     }
     const wrapper = mount(DropdownLink, {
-      localVue: createLocalVue(),
+      localVue,
       stubs: {
         'router-link': RouterLinkStub
       },
@@ -26,4 +26,6 @@ describe('DropdownLink', () => {
     })
     expect(wrapper.html()).toMatchSnapshot()
   })
-})
+}
+
+modeTestRunner('DropdownLink', test)

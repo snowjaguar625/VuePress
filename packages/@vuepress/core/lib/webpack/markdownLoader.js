@@ -1,9 +1,3 @@
-'use strict'
-
-/**
- * Module dependencies.
- */
-
 const fs = require('fs')
 const path = require('path')
 const hash = require('hash-sum')
@@ -15,10 +9,6 @@ const LRU = require('lru-cache')
 
 const cache = LRU({ max: 1000 })
 const devCache = LRU({ max: 1000 })
-
-/**
- * Expose markdown loader.
- */
 
 module.exports = function (src) {
   const isProd = process.env.NODE_ENV === 'production'

@@ -195,7 +195,7 @@ function find (page, items, offset) {
 </script>
 
 <style lang="stylus">
-@import '~@app/style/config'
+@import '../styles/config.styl'
 @require '../styles/wrapper.styl'
 
 .page

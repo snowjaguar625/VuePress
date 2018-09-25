@@ -6,7 +6,7 @@ import PluginAPI from '../../lib/plugin-api/index'
 import { PLUGIN_OPTION_MAP } from '../../lib/plugin-api/constants'
 
 describe('Plugin', () => {
-  test('registerOption', () => {
+  test('should \'registerOption\' work.', () => {
     const api = new PluginAPI()
     const readyHandler = () => {}
     api.registerOption(PLUGIN_OPTION_MAP.READY.key, readyHandler)
@@ -14,7 +14,7 @@ describe('Plugin', () => {
     expect(api.options.ready.values[0]).toBe(readyHandler)
   })
 
-  test('useByPluginsConfig', () => {
+  test('should \'useByPluginsConfig\' work.', () => {
     [
       ['a'],
       [['a']],
@@ -29,7 +29,7 @@ describe('Plugin', () => {
     })
   })
 
-  test('useByPluginsConfig - disable plugin', () => {
+  test('should \'useByPluginsConfig\' work. - disable plugin', () => {
     [
       [['a', false]],
       { a: false }
@@ -42,7 +42,7 @@ describe('Plugin', () => {
     })
   })
 
-  test('useByPluginsConfig - get options', () => {
+  test('should \'useByPluginsConfig\' work. - get options', () => {
     const pluginOptions = {};
     [
       [['a', pluginOptions]],
@@ -54,7 +54,7 @@ describe('Plugin', () => {
     })
   })
 
-  test('ensure the namesake plugin is only executed once.', () => {
+  test('make sure the namesake plugin is only executed once.', () => {
     const pluginOptions1 = {}
     const pluginOptions2 = {}
     const pluginOptions3 = {}
@@ -70,7 +70,7 @@ describe('Plugin', () => {
     expect(api.enabledPlugins[0].$$options).toBe(pluginOptions3)
   })
 
-  test('ensure a "multuple" plugin can be applied multuple times.', () => {
+  test('a "multuple" plugin can be applied multuple times.', () => {
     const pluginOptions1 = { a: 1 }
     const pluginOptions2 = { b: 1 }
     const pluginsConfig = [

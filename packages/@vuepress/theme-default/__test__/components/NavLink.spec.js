@@ -1,15 +1,15 @@
 import { mount, RouterLinkStub } from '@vue/test-utils'
-import createLocalVue from '@vuepress/test-utils/createLocalVue'
+import modeTestRunner from '@vuepress/test-utils/modeTestRunner'
 import NavLink from '../../components/NavLink.vue'
 
-describe('NavLink', () => {
-  test('renders nav link with internal link', () => {
+function test (mode, localVue) {
+  it(`$${mode} - renders nav link with internal link`, () => {
     const item = {
       link: '/',
       text: 'VuePress'
     }
     const wrapper = mount(NavLink, {
-      localVue: createLocalVue(),
+      localVue,
       stubs: {
         'router-link': RouterLinkStub
       },
@@ -18,15 +18,17 @@ describe('NavLink', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  test('renders nav link with external link', () => {
+  it(`$${mode} - renders nav link with external link`, () => {
     const item = {
       link: 'http://vuejs.org/',
       text: 'Vue'
     }
     const wrapper = mount(NavLink, {
-      localVue: createLocalVue(),
+      localVue,
       propsData: { item }
     })
     expect(wrapper.html()).toMatchSnapshot()
   })
-})
+}
+
+modeTestRunner('NavLink', test)

@@ -7,7 +7,7 @@
 </template>
 
 <style lang="stylus">
-@import '~@app/style/config'
+@import '../styles/config.styl'
 
 .sidebar-button
   display none

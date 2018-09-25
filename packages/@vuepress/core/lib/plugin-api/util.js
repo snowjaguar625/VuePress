@@ -1,26 +1,14 @@
-'use strict'
-
-/**
- * Module dependencies.
- */
-
 const { logger, chalk, datatypes: { assertTypes }} = require('@vuepress/shared-utils')
 
 /**
- * flatten your plugin config by passing in name, options and context.
- * @param {function|object} module
- * @param {string} name
- * @param {string} hortcut
- * @param {object} pluginOptions
- * @param {object} pluginContext
+ * Hydrates your plugin config, options and context.
+ * @param {Function | Object} module
+ * @param {String} name
+ * @param {String} hortcut
+ * @param {Object} pluginOptions
+ * @param {Object} pluginContext
  */
-
-exports.flattenPlugin = function (
-  { module: config, name, shortcut, isLocal },
-  pluginOptions,
-  pluginContext,
-  self
-) {
+exports.hydratePlugin = function ({ module: config, name, shortcut, isLocal }, pluginOptions, pluginContext, self) {
   const { valid, warnMsg } = assertTypes(pluginOptions, [Object, Boolean])
   if (!valid) {
     if (pluginOptions !== undefined) {
@@ -31,19 +19,16 @@ exports.flattenPlugin = function (
     }
     pluginOptions = {}
   }
-
   let enabled = true
   if (typeof pluginOptions === 'boolean') {
     enabled = pluginOptions
     pluginOptions = {}
   }
-
   if (typeof config === 'function') {
     // 'Object.create' here is to give each plugin a separate context,
     // but also own the inheritance context.
     config = config(pluginOptions, Object.create(pluginContext), self)
   }
-
   // respect name in local plugin config
   name = isLocal && config.name || name
   return Object.assign({}, config, {
@@ -58,7 +43,6 @@ exports.flattenPlugin = function (
  * Normalize plugins config in `.vuepress/config.js`
  * @param pluginsConfig
  */
-
 exports.normalizePluginsConfig = function (pluginsConfig) {
   const { valid, warnMsg } = assertTypes(pluginsConfig, [Object, Array])
   if (!valid) {
@@ -71,7 +55,6 @@ exports.normalizePluginsConfig = function (pluginsConfig) {
     pluginsConfig = []
     return pluginsConfig
   }
-
   if (Array.isArray(pluginsConfig)) {
     pluginsConfig = pluginsConfig.map(item => {
       return Array.isArray(item) ? item : [item]

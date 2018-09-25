@@ -31,11 +31,11 @@ export default {
           (!nextAnchor || scrollTop < nextAnchor.parentElement.offsetTop - 10))
 
         if (isActive && decodeURIComponent(this.$route.hash) !== decodeURIComponent(anchor.hash)) {
-          Vue.$store.set('disableScrollBehavior', true)
+          Vue.$store.disableScrollBehavior = true
           this.$router.replace(decodeURIComponent(anchor.hash), () => {
             // execute after scrollBehavior handler.
             this.$nextTick(() => {
-              Vue.$store.set('disableScrollBehavior', false)
+              Vue.$store.disableScrollBehavior = false
             })
           })
           return

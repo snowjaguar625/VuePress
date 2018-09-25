@@ -1,9 +1,3 @@
-'use strict'
-
-/**
- * Expose createServerConfig method.
- */
-
 module.exports = function createServerConfig (ctx) {
   const fs = require('fs')
   const path = require('path')

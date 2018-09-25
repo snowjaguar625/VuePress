@@ -46,16 +46,13 @@ module.exports = (options, ctx) => ({
     }
 
     ctx.pagination = pagination
-    pagination.paginationPages.forEach(({ path }, index) => {
+    pagination.paginationPages.forEach(({ path }) => {
       if (path === '/') {
         return
       }
       ctx.addPage({
         permalink: path,
-        frontmatter: {
-          layout,
-          title: `Page ${index + 1}`
-        }
+        frontmatter: { layout }
       })
     })
   },

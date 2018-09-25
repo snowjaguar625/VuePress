@@ -1,17 +1,4 @@
-'use strict'
-
-/**
- * Module dependencies.
- */
-
 const { deeplyParseHeaders } = require('@vuepress/shared-utils')
-
-/**
- * Normalize head tag config.
- *
- * @param {string|array} tag
- * @returns {object}
- */
 
 exports.normalizeHeadTag = function (tag) {
   if (typeof tag === 'string') {
@@ -25,15 +12,6 @@ exports.normalizeHeadTag = function (tag) {
     closeTag: !(tagName === 'meta' || tagName === 'link')
   }
 }
-
-/**
- * Use webpack-merge to merge user's config into default config.
- *
- * @param {object} userConfig
- * @param {object} config
- * @param {boolean} isServer
- * @returns {object}
- */
 
 exports.applyUserWebpackConfig = function (userConfig, config, isServer) {
   const merge = require('webpack-merge')
@@ -49,14 +27,6 @@ exports.applyUserWebpackConfig = function (userConfig, config, isServer) {
   return config
 }
 
-/**
- * Infer a page's title via frontmatter and content.
- *
- * @param frontmatter
- * @param strippedContent
- * @returns {*}
- */
-
 exports.inferTitle = function (frontmatter, strippedContent) {
   if (frontmatter.home) {
     return 'Home'
@@ -69,15 +39,6 @@ exports.inferTitle = function (frontmatter, strippedContent) {
     return deeplyParseHeaders(match[1])
   }
 }
-
-/**
- * Extract heeaders from markdown source content.
- *
- * @param {string} content
- * @param {array} include
- * @param {object} md
- * @returns {array}
- */
 
 const LRU = require('lru-cache')
 const cache = LRU({ max: 1000 })
@@ -106,26 +67,4 @@ exports.extractHeaders = function (content, include = [], md) {
 
   cache.set(key, res)
   return res
-}
-
-/**
- * Infer date.
- *
- * @param {object} frontmatter
- * @param {string} filename
- * @returns {null|string}
- */
-
-const DATE_RE = /(\d{4}-\d{1,2}(-\d{1,2})?)-(.*)/
-exports.DATE_RE = DATE_RE
-
-exports.inferDate = function (frontmatter = {}, filename) {
-  if (frontmatter.date) {
-    return frontmatter.date
-  }
-  const match = filename.match(DATE_RE)
-  if (match) {
-    return match[1]
-  }
-  return null
 }

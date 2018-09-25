@@ -1,9 +1,3 @@
-'use strict'
-
-/**
- * Expose createClientConfig method.
- */
-
 module.exports = function createClientConfig (ctx) {
   const path = require('path')
   const WebpackBar = require('webpackbar')

@@ -1,5 +1,3 @@
-'use strict'
-
 const PLUGIN_OPTION_META_MAP = {
   // hooks
   READY: { name: 'ready', types: [Function] },
@@ -16,9 +14,7 @@ const PLUGIN_OPTION_META_MAP = {
   CLIENT_DYNAMIC_MODULES: { name: 'clientDynamicModules', types: [Function] },
   CLIENT_ROOT_MIXIN: { name: 'clientRootMixin', types: [String] },
   ADDITIONAL_PAGES: { name: 'additionalPages', types: [Function, Array] },
-  GLOBAL_UI_COMPONENTS: { name: 'globalUIComponents', types: [String, Array] },
-  DEFINE: { name: 'define', types: [Function, Object] },
-  ALIAS: { name: 'alias', types: [Function, Object] }
+  GLOBAL_UI_COMPONENTS: { name: 'globalUIComponents', types: [String, Array] }
 }
 
 const PLUGIN_OPTION_MAP = {}

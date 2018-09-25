@@ -12,11 +12,10 @@ const SCOPE_PACKAGE_RE = /^@(.*)\/(.*)/
 
 /**
  * Delightful pakcage shortcut resolving utility.
- * @param {string} type 'plugin', 'theme', or others.
+ * @param {steing} type 'plugin', 'theme', or others.
  * @param {string} org
  * @returns {function}
  */
-
 function shortcutPackageResolver (
   type = 'plugin',
   org = 'vuepress',

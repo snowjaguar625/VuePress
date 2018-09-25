@@ -1,14 +1,4 @@
-'use strict'
-
-/**
- * Module dependencies.
- */
-
 const { chalk, logger } = require('@vuepress/shared-utils')
-
-/**
- * Expose DevLogPlugin class.
- */
 
 module.exports = class DevLogPlugin {
   constructor (options) {

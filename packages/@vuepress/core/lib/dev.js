@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports = async function dev (sourceDir, cliOptions = {}) {
   const path = require('path')
   const webpack = require('webpack')
