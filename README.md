@@ -10,6 +10,12 @@
   <a href="https://www.npmjs.com/package/vuepress"><img src="https://img.shields.io/npm/l/vuepress.svg" alt="License"></a>
 </p>
 
+> This is the branch for `VuePress 1.0`.
+
+## Status: alpha
+
+Certain combinations of plugins may not work properly, and things may change or break until we reach beta phase. Do not use in production yet unless you are adventurous.
+
 # VuePress
 
 > Minimalistic docs generator with Vue component based layout system
@@ -72,6 +78,7 @@ Websites built with VuePress:
 
 * [cr-vue](https://cr-vue.mio3io.com/)
 * [vuesax](https://lusaxweb.github.io/vuesax/)
+* [vuemeetups](https://vuemeetups.org)
 
 ## Todo Features
 
