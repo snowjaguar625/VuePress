@@ -11,7 +11,7 @@
 function findPageForPath (pages, path) {
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i]
-    if (page.path.toLowerCase() === path.toLowerCase()) {
+    if (page.path === path) {
       return page
     }
   }
