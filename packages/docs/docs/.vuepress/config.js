@@ -104,8 +104,7 @@ module.exports = {
       serviceWorker: true,
       updatePopup: true
     },
-    '@vuepress/plugin-medium-zoom': true,
-    'flowchart': true
+    '@vuepress/plugin-medium-zoom': true
   }
 }
 
