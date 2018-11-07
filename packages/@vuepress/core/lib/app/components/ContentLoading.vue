@@ -20,7 +20,15 @@
 import { ContentLoader } from 'vue-content-loader'
 
 export default {
-  components: { ContentLoader }
+  components: {
+    ContentLoader
+  },
+
+  data () {
+    return {
+      containerStyle: {}
+    }
+  }
 }
 </script>
 
