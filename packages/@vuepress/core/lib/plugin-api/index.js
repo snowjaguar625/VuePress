@@ -10,6 +10,7 @@ const { PLUGIN_OPTION_MAP } = require('./constants')
 const {
   moduleResolver: { getPluginResolver },
   datatypes: { assertTypes, isPlainObject },
+  env: { debug },
   logger, chalk
 } = require('@vuepress/shared-utils')
 
@@ -209,7 +210,13 @@ module.exports = class PluginAPI {
     alias
   }) {
     const isInternalPlugin = pluginName.startsWith('@vuepress/internal-')
-    logger[isInternalPlugin ? 'debug' : 'tip'](pluginLog(pluginName, shortcut))
+    if (!isInternalPlugin || debug) {
+      logger.tip(
+        shortcut
+          ? `Apply plugin ${chalk.magenta(shortcut)} ${chalk.gray(`(i.e. "${pluginName}")`)} ...`
+          : `Apply plugin ${chalk.magenta(pluginName)} ...`
+      )
+    }
 
     this
       .registerOption(PLUGIN_OPTION_MAP.READY.key, ready, pluginName)
@@ -230,10 +237,4 @@ module.exports = class PluginAPI {
       .registerOption(PLUGIN_OPTION_MAP.DEFINE.key, define, pluginName)
       .registerOption(PLUGIN_OPTION_MAP.ALIAS.key, alias, pluginName)
   }
-}
-
-function pluginLog (name, shortcut) {
-  return shortcut
-    ? `Apply plugin ${chalk.magenta(shortcut)} ${chalk.gray(`(i.e. "${name}")`)} ...`
-    : `Apply plugin ${chalk.magenta(name)} ...`
 }
