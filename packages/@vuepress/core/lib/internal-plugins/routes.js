@@ -16,12 +16,11 @@ function importCode () {
   return `
 import { injectComponentOption } from '@app/util'
 import rootMixins from '@internal/root-mixins'
-import layoutComponents from '@internal/layout-components'
-import pageComponents from '@internal/page-components'
+import components from '@internal/layout-components'
 import LayoutDistributor from '@app/components/LayoutDistributor.vue'
 
 injectComponentOption(LayoutDistributor, 'mixins', rootMixins)
-injectComponentOption(LayoutDistributor, 'components', Object.assign({}, layoutComponents, pageComponents))
+injectComponentOption(LayoutDistributor, 'components', components)
 `
 }
 
