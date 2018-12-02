@@ -1,4 +1,4 @@
-const { chalk, performance } = require('@vuepress/shared-utils')
+const { chalk } = require('@vuepress/shared-utils')
 const semver = require('semver')
 
 try {
@@ -33,15 +33,12 @@ exports.bootstrap = function ({
   const { path, logger, env } = require('@vuepress/shared-utils')
   const { dev, build, eject } = require('@vuepress/core')
 
-  performance.start()
-
   cli
     .version(pkg.version)
     .help()
 
   cli
     .command('dev [targetDir]', 'start development server')
-    .allowUnknownOptions()
     .option('-p, --port <port>', 'use specified port (default: 8080)')
     .option('-t, --temp <temp>', 'set the directory of the temporary file')
     .option('-c, --cache [cache]', 'set the directory of cache')
@@ -74,7 +71,6 @@ exports.bootstrap = function ({
 
   cli
     .command('build [targetDir]', 'build dir as static site')
-    .allowUnknownOptions()
     .option('-d, --dest <dest>', 'specify build output dir (default: .vuepress/dist)')
     .option('-t, --temp <temp>', 'set the directory of the temporary file')
     .option('-c, --cache [cache]', 'set the directory of cache')

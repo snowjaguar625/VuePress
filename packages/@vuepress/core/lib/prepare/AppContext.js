@@ -23,13 +23,6 @@ const PluginAPI = require('../plugin-api/index')
  */
 
 module.exports = class AppContext {
-  static getInstance (...args) {
-    if (!AppContext._instance) {
-      AppContext._instance = new AppContext(...args)
-    }
-    return AppContext._instance
-  }
-
   /**
    * Instantiate the app context with a new API
    *
@@ -52,16 +45,6 @@ module.exports = class AppContext {
     this.writeTemp = writeTemp
 
     this.vuepressDir = path.resolve(sourceDir, '.vuepress')
-  }
-
-  /**
-   * Resolve user config and initialize.
-   *
-   * @returns {void}
-   * @api private
-   */
-
-  resolveConfigAndInitialize () {
     this.siteConfig = loadConfig(this.vuepressDir)
     if (isFunction(this.siteConfig)) {
       this.siteConfig = this.siteConfig(this)
@@ -73,12 +56,13 @@ module.exports = class AppContext {
     this.base = this.siteConfig.base || '/'
     this.themeConfig = this.siteConfig.themeConfig || {}
 
-    const rawOutDir = this.cliOptions.dest || this.siteConfig.dest
+    const rawOutDir = cliOptions.dest || this.siteConfig.dest
     this.outDir = rawOutDir
       ? require('path').resolve(this.cwd, rawOutDir)
-      : require('path').resolve(this.sourceDir, '.vuepress/dist')
-    this.pages = [] // Array<Page>
+      : require('path').resolve(sourceDir, '.vuepress/dist')
+
     this.pluginAPI = new PluginAPI(this)
+    this.pages = [] // Array<Page>
     this.ClientComputedMixinConstructor = ClientComputedMixin(this.getSiteData())
   }
 
@@ -90,7 +74,6 @@ module.exports = class AppContext {
    */
 
   async process () {
-    this.resolveConfigAndInitialize()
     this.resolveCacheLoaderOptions()
     this.normalizeHeadTagUrls()
     await this.resolveTheme()
@@ -110,11 +93,9 @@ module.exports = class AppContext {
     )
 
     await this.pluginAPI.options.ready.apply()
-    await Promise.all([
-      this.pluginAPI.options.clientDynamicModules.apply(this),
-      this.pluginAPI.options.enhanceAppFiles.apply(this),
-      this.pluginAPI.options.globalUIComponents.apply(this)
-    ])
+    await this.pluginAPI.options.clientDynamicModules.apply(this)
+    await this.pluginAPI.options.globalUIComponents.apply(this)
+    await this.pluginAPI.options.enhanceAppFiles.apply(this)
   }
 
   /**
@@ -145,6 +126,7 @@ module.exports = class AppContext {
       .use(require('../internal-plugins/pageComponents'))
       .use(require('../internal-plugins/transformModule'))
       .use(require('../internal-plugins/dataBlock'))
+      .use(require('../internal-plugins/frontmatterBlock'))
       .use('@vuepress/last-updated', !!shouldUseLastUpdated)
       .use('@vuepress/register-components', {
         componentsDir: [
@@ -263,7 +245,7 @@ module.exports = class AppContext {
 
   async resolvePages () {
     // resolve pageFiles
-    const patterns = ['**/*.md', '!.vuepress', '!node_modules']
+    const patterns = ['**/*.md', '**/*.vue', '!.vuepress', '!node_modules']
     if (this.siteConfig.dest) {
       // #654 exclude dest folder when dest dir was set in
       // sourceDir but not in '.vuepress'
