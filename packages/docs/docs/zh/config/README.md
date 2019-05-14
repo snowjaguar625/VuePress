@@ -206,6 +206,13 @@ VuePress 提供了一种添加额外样式的简便方法。你可以创建一�
 
 这个键值对将会作为特性被增加到是外部链接的 `<a>` 标签上，默认的选项将会在新窗口中打开一个该外部链接。
 
+### markdown.toc
+
+- 类型: `Object`
+- 默认值: `{ includeLevel: [2, 3] }`
+
+[markdown-it-table-of-contents](https://github.com/Oktavilla/markdown-it-table-of-contents) 的选项。
+
 ### markdown.plugins
 
 你可以使用 `markdown.plugins` 来安装 markdown-it 插件。它的使用方法与[安装一个 VuePress 插件](../plugin/using-a-plugin.html#using-a-plugin)类似。你可以使用 Babel 语法或对象语法。`markdown-it-` 前缀同样是可以忽略的。

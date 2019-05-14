@@ -99,11 +99,11 @@ lang: en-US
 
 :tada: :100:
 
-## 目录 <Badge text="默认主题"/>
+## 目录
 
 **输入**
 
-```md
+```
 [[toc]]
 ```
 
@@ -111,9 +111,7 @@ lang: en-US
 
 [[toc]]
 
-目录（Table of Contents）的渲染可以通过 [`themeConfig.toc`](../theme/default-theme-config.md#table-of-contents) 选项来配置。
-
-> 如果想要使用高级的 `<TOC/>` 组件，你也可以使用官方提供的 [vuepress-plugin-toc](https://vuepress.github.io/plugins/toc/) 插件。
+目录（Table of Contents）的渲染可以通过  [`markdown.toc`](../config/README.md#markdown-toc) 选项来配置。
 
 ## 自定义容器 <Badge text="默认主题"/>
 

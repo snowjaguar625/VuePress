@@ -215,6 +215,13 @@ Options for [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-
 
 The key and value pair will be added to `<a>` tags that point to an external link. The default option will open external links in a new window.
 
+### markdown.toc
+
+- Type: `Object`
+- Default: `{ includeLevel: [2, 3] }`
+
+Options for [markdown-it-table-of-contents](https://github.com/Oktavilla/markdown-it-table-of-contents). (Note: prefer `markdown.slugify` if you want to customize header ids.)
+
 ### markdown.plugins
 
 You can install any markdown-it plugins through `markdown.plugins` option. It is similar with [using VuePress plugins](../plugin/using-a-plugin.html#using-a-plugin). You can either use Babel style or object style. The `markdown-it-` prefix is optional and can omit in the list.

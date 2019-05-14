@@ -225,6 +225,7 @@ export default {
 - [Markdown 插槽](./markdown-slot.md)
 - [开发主题 > 获取渲染内容](../theme/writing-a-theme.md#获取渲染内容)
 
+
 ### Badge <Badge text="beta" type="warn"/> <Badge text="0.10.1+"/> <Badge text="默认主题"/>
 
 - **Props**:

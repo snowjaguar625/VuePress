@@ -224,6 +224,7 @@ Specify a specific slot for a specific page (.md) for rendering. This will be ve
 - [Markdown Slot](./markdown-slot.md)
 - [Writing a theme > Content Outlet](../theme/writing-a-theme.md#content-outlet)
 
+
 ### Badge <Badge text="beta" type="warn"/> <Badge text="0.10.1+"/> <Badge text="default theme"/>
 
 - **Props**:
