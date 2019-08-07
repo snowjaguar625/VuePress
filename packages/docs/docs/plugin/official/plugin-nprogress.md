@@ -34,6 +34,6 @@ Set `$nprogressColor` in your __site__ or __theme__ `palette.styl` file to chang
 $nprogressColor = red
 ```
 
-__Also see:__
+**Also see:**
 
 - [Config Reference > Styling](../../config/README.md#styling)
