@@ -1,5 +1,0 @@
----
-sidebar: auto
----
-
-# need trad
